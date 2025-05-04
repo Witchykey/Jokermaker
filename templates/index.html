@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">
+                    <i class="fas fa-magic me-2"></i>AI Joke Generator
+                </h2>
+            </div>
+            <div class="card-body">
+                <p class="lead mb-4">
+                    Generate custom jokes using OpenAI's powerful language model. Select a joke type, enter a topic, and let the AI creativity flow!
+                </p>
+
+                <form method="POST" id="jokeForm">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        <label for="{{ form.joke_type.id }}" class="form-label">{{ form.joke_type.label }}</label>
+                        {{ form.joke_type(class="form-select") }}
+                        {% if form.joke_type.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.joke_type.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.topic.id }}" class="form-label">{{ form.topic.label }}</label>
+                        {{ form.topic(class="form-control") }}
+                        {% if form.topic.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.topic.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary btn-lg", id="generateBtn") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if joke_result %}
+        <div class="joke-result card border-0 shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-laugh-beam me-2"></i>Your Custom Joke
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="joke-content">
+                    <p id="jokeText" class="fs-5">{{ joke_result }}</p>
+                </div>
+                <div class="mt-3 d-flex justify-content-end">
+                    <button id="copyBtn" class="btn btn-outline-secondary me-2" onclick="copyJoke()">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                    <button id="shareBtn" class="btn btn-outline-primary" onclick="shareJoke()">
+                        <i class="fas fa-share-alt me-1"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="loadingIndicator" class="loading-container d-none mt-4 text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Generating your joke...</p>
+        </div>
+
+        <div id="dynamicJokeResult" class="joke-result card border-0 shadow-sm mt-4 d-none">
+            <div class="card-header bg-success text-white">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-laugh-beam me-2"></i>Your Custom Joke
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="joke-content">
+                    <p id="dynamicJokeText" class="fs-5"></p>
+                </div>
+                <div class="mt-3 d-flex justify-content-end">
+                    <button id="dynamicCopyBtn" class="btn btn-outline-secondary me-2" onclick="copyDynamicJoke()">
+                        <i class="fas fa-copy me-1"></i> Copy
+                    </button>
+                    <button id="dynamicShareBtn" class="btn btn-outline-primary" onclick="shareDynamicJoke()">
+                        <i class="fas fa-share-alt me-1"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-lightbulb fs-1 text-warning mb-3"></i>
+                <h4>Endless Creativity</h4>
+                <p>AI-powered joke generation provides unlimited creative potential with personalized topics.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-laugh-squint fs-1 text-info mb-3"></i>
+                <h4>Multiple Joke Types</h4>
+                <p>Choose from a variety of joke formats including dad jokes, puns, one-liners, and more.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-share-alt fs-1 text-success mb-3"></i>
+                <h4>Easy Sharing</h4>
+                <p>Copy and share your favorite AI-generated jokes with friends on social media.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

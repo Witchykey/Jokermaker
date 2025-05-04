@@ -1,0 +1,98 @@
+/* Custom styles for JokeSmith */
+
+/* Add some breathing room */
+body {
+    padding-bottom: 2rem;
+}
+
+/* Make joke content stand out */
+.joke-content {
+    padding: 1.5rem;
+    background-color: var(--bs-dark-bg-subtle);
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Loading indicator styles */
+.loading-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Add some transition effects */
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Ensure footer stays at the bottom */
+html, body {
+    min-height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Add custom animation for success message */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.joke-result {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Make buttons more appealing */
+.btn-primary {
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom card styling */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .joke-content {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
